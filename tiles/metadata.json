@@ -1,0 +1,8 @@
+{
+    "name": "kapsari",
+    "minzoom": "6",
+    "center": "15.271,49.8309,6",
+    "maxzoom": "13",
+    "format": "pbf",
+    "json": "{\"vector_layers\":[{\"id\":\"oop_kapsari\",\"description\":\"kapsari\",\"fields\":{\"FIRST_CO_1\":\"String\",\"FIRST_DIST\":\"Number\",\"FIRST_DI_1\":\"String\",\"FIRST_OOP_\":\"Number\",\"OOP_NAZEV\":\"String\",\"SUM_N_OBVY\":\"Number\",\"SUM_N_TRVA\":\"Number\",\"Shape_Area\":\"Number\",\"Shape_Length\":\"Number\",\"data\":\"String\",\"rate\":\"Number\"}}]}"
+}
