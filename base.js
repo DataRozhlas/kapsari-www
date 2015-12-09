@@ -2,6 +2,16 @@ var map;
 
 var breaks = [0.283044, 0.397056, 0.555200, 0.985058, 254.421067]
 
+var sklonovani = function(num) {
+	if (num == 1) {
+		return num + " kapesní krádež";
+	} else if ((num >= 1) & (num <= 4)) {
+		return num + " kapesní krádeže"
+	} else {
+		return num + " kapesních krádeží"
+	}
+}
+
 var style = function () {
   var style = {}
   style.version = 8;
@@ -12,7 +22,18 @@ var style = function () {
       "maxzoom": 13
       
     };
+   style.sources.back = {
+   		"type": "raster",
+      "tiles": ["https://samizdat.cz/tiles/ton_b1/{z}/{x}/{y}.png"],
+      "tileSize": 256
+   };
     style.layers = [
+    {
+    	"id": "back",
+      "interactive": false,
+      "type": "raster",
+      "source": "back"
+     },
     {
       "id": "hon1",
       "interactive": true,
@@ -108,18 +129,16 @@ var drawChart = function(months) {
 			}
 		}
 		var data = dates.map(function(date ,i) {
-			return {'x': i, 'y': months[date], 'label': date}
-		}).filter(function(obj) {
-			return obj.y !== undefined
+			return {'x': i, 'y': (months[date] || 0), 'label': date}
 		});
-		//chart
 
-            var w = 400;
+		//chart
+            var w = 440;
             var h = 150;
 
             var yscale = d3.scale.linear()
                             .domain([0, 154])
-                            .range([5, h])
+                            .range([12, h])
 
             var svg = d3.select("#chart")
                 .append("svg")
@@ -131,21 +150,37 @@ var drawChart = function(months) {
                .enter()
                .append("rect")
                .attr("x", function(d) {
-                return d.x * 16;
+                return d.x * 17;
                })
                .attr("y", function(d) {
                 return h - yscale(d.y)
                })
-               .attr("width", 14)
+               .attr("width", 16)
                .attr("height", function(d) {
                 return yscale(Math.max(0, d.y));
                })
-               .attr("fill", "#66c2a5")
+               .attr("fill", "#4292c6")
 
-
-            
-		//chart end
-
+            svg.selectAll("text")
+                .data(data)
+                .enter()
+                .append("text")
+                .text(function(d) {
+                    return Math.max(0, d.y);
+                })
+                .attr("x", function(d, i) {
+                    return d.x * 17;
+                })
+                .attr("y", function(d) {
+                    if (d != 0) {
+                        return h - yscale(d.y) + 8;
+                    } else {
+                        return h - yscale(d.y) + 2
+                    }
+                })
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "10px")
+                .attr("fill", "#f7fbff")
     };
 
 var drawMap = function() {
@@ -158,18 +193,42 @@ var drawMap = function() {
 	  style: style()
 	});
 
+	map.addControl(new mapboxgl.Navigation());
 	map.dragRotate.disable();
-	//map.addControl(new mapboxgl.Navigation());
+
 
 	map.on('mousemove', function(e) {
 	    map.featuresAt(e.point, {}, function(err, features) {
 	        if (err) throw err;
+	        average = 0;
 	        $(".info").empty()
 	        $("#chart").empty()
 	        drawChart(features[0].properties['data'])
-	        $(".info").append(features[0].properties['OOP_NAZEV'] + "<br>" + "Policie zde eviduje průměrně " + Math.round(features[0].properties['rate'] * 10) + " kapesních krádeží na 100 tis. obyvatel")
+	        $(".info").append("Služebna <b>" + features[0].properties['OOP_NAZEV'] + "</b><br>" + "Průměrně <b>" + sklonovani(Math.round(features[0].properties['rate'] * 10)) + "</b> měsíčně na 100 tis. obyvatel.")
 	    });
 	});
 };
 
+var form = document.getElementById("frm-geocode");
+		var geocoder = null;
+		var geocodeMarker = null;
+		form.onsubmit = function(event) {
+			if (!geocoder) {
+				geocoder = new google.maps.Geocoder();
+			}
+			event.preventDefault();
+			var text = document.getElementById("inp-geocode").value;
+
+			geocoder.geocode({'address':text}, function(results, status) {
+				if(status !== google.maps.GeocoderStatus.OK) {
+					alert("Bohužel, danou adresu nebylo možné najít");
+					return;
+				}
+				var result = results[0];
+				var latlng = new L.LatLng(result.geometry.location.lat(), result.geometry.location.lng());
+				map.flyTo({center: latlng, zoom: 12});
+			});
+		};
+
 drawMap();
+

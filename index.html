@@ -8,10 +8,46 @@
     <script src="https://samizdat.cz/tools/jquery/2.1.1.min.js"></script>
     <script src="https://samizdat.cz/tools/leaflet/0.7.3.js"></script>
     <script src="https://samizdat.cz/tools/d3/3.5.3.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
-        #tooltip { background-color: red; position:absolute; top:30px; right: 30px; width:430px; height: 300px}
+        #tooltip { 
+            background-color: white;
+            position:absolute; 
+            top:30px; 
+            right: 50px; 
+            width:450px; 
+            height: 250px;
+            padding: 5px;
+            border: 2px solid #aaa;
+            -webkit-border-radius: 4px;
+                    border-radius: 4px;
+        }
+        #frm-geocode {
+            position: absolute;
+            top: 540px;
+            right: 10px;
+            background: white;
+            padding: 5px;
+            float: left;
+            border: 2px solid #aaa;
+            -webkit-border-radius: 4px;
+                    border-radius: 4px;
+        }
+        #frm-geocode label {
+            float: left;
+            clear: left;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+        }
+        #frm-geocode .inputs {
+            float: left;
+            clear: left;
+            padding-top: 3px;
+        }
+        #frm-geocode input {
+            float: left;
+        }
     </style>
 </head>
 <body>
@@ -20,6 +56,13 @@
 <div id='tooltip'>
     <p class='info'></p>
     <div id="chart"></div>
+    <form action="?" id='frm-geocode'>
+        <label for="inp-geocode">Najít adresu</label>
+        <div class="inputs">
+            <input type="text" id="inp-geocode" placeholder="Plasy">
+            <input type="submit" value="Najít">
+        </div>
+    </form>
 </div>
 <script src='./base.js'></script>
 
