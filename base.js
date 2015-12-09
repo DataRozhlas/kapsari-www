@@ -35,15 +35,9 @@ var style = function () {
     style.layers = [
     {
     	"id": "back",
-      "interactive": true,
+      "interactive": false,
       "type": "raster",
       "source": "back"
-     },
-     {
-    	"id": "mistopis",
-      "interactive": true,
-      "type": "raster",
-      "source": "mistopis"
      },
     {
       "id": "hon1",
@@ -123,7 +117,13 @@ var style = function () {
         "fill-color": "#d7191c",
         "fill-outline-color": "#d9d9d9",
         "fill-opacity": 0.8
-    }
+    },
+    {
+    	"id": "mistopis",
+      "interactive": false,
+      "type": "raster",
+      "source": "mistopis"
+     }
     }];
     return style;
 };
