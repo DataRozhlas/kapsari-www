@@ -10,17 +10,19 @@
     <script src="https://samizdat.cz/tools/d3/3.5.3.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <style>
-        body { margin:0; padding:0; } 
+        body { margin:0; padding:0; }
         * {
-            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+                    box-sizing: border-box;
         }
-        #map { position:absolute; top:0; width:100%; height: 70%; }
-        #tooltip { 
+        #map { position:absolute; top:0; width:100%; height: calc(100% - 260px); }
+        #tooltip {
             position:absolute;
             font-family: Helvetica, Arial, Sans-Serif;
             bottom:0;
             width:100%;
-            height: 30%;
+            height: 260px;
             padding: 10px;
             border: 0px;
         }
@@ -56,7 +58,7 @@
 <div id='tooltip'>
     <p class='info'></p>
     <div id="chart"></div>
-    
+
 </div>
 <form action="?" id='frm-geocode'>
         <label for="inp-geocode">Najít adresu</label>
