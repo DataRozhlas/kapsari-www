@@ -230,7 +230,8 @@ var drawMap = function() {
 	        $(".info").empty()
 	        $("#chart").empty()
 	        drawChart(features[0].properties['data'])
-	        $(".info").append("Služebna <b>" + features[0].properties['OOP_NAZEV'] + "</b><br>" + "Průměrně <b>" + sklonovani(Math.round(features[0].properties['rate'] * 10)) + "</b> měsíčně na 100 tis. obyvatel.")
+	        console.log(features[0].properties)
+	        $(".info").append("Služebna <b>" + features[0].properties['OOP_NAZEV'] + "</b><br>" + "Průměrně <b>" + sklonovani(Math.round(features[0].properties['rate'] * 10)) + "</b> měsíčně na 100 tis. obyvatel (žije zde " + features[0].properties['SUM_N_TRVA'] + " osob).")
 	    });
 	});
 };
