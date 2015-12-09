@@ -27,12 +27,23 @@ var style = function () {
       "tiles": ["https://samizdat.cz/tiles/ton_b1/{z}/{x}/{y}.png"],
       "tileSize": 256
    };
+   style.sources.mistopis = {
+   		"type": "raster",
+      "tiles": ["https://samizdat.cz/tiles/ton_l1/{z}/{x}/{y}.png"],
+      "tileSize": 256
+   };
     style.layers = [
     {
     	"id": "back",
-      "interactive": false,
+      "interactive": true,
       "type": "raster",
       "source": "back"
+     },
+     {
+    	"id": "mistopis",
+      "interactive": true,
+      "type": "raster",
+      "source": "mistopis"
      },
     {
       "id": "hon1",
