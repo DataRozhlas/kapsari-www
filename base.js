@@ -144,7 +144,7 @@ var drawChart = function(months) {
 		});
 
 		//chart
-            var w = 900;
+            var w = 950;
             var h = 150;
 
             var yscale = d3.scale.linear()
@@ -161,12 +161,12 @@ var drawChart = function(months) {
                .enter()
                .append("rect")
                .attr("x", function(d) {
-                	return d.x * 25;
+                	return d.x * 27;
                })
                .attr("y", function(d) {
                 	return h - yscale(d.y)
                })
-               .attr("width", 23)
+               .attr("width", 25)
                .attr("height", function(d) {
                 	return yscale(Math.max(0, d.y));
                })
@@ -180,7 +180,7 @@ var drawChart = function(months) {
                     return Math.max(0, d.y);
                 })
                 .attr("x", function(d, i) {
-                    return d.x * 25;
+                    return (d.x * 27) + 2;
                 })
                 .attr("y", function(d) {
                     if (d != 0) {
@@ -201,7 +201,7 @@ var drawChart = function(months) {
                     return d.label.split('-')[0] + '. ' + d.label.substr(d.label.length - 2);
                 })
                 .attr("x", function(d, i) {
-                    return d.x * 25;
+                    return (d.x * 27) + 3;
                 })
                 .attr("y", h + 15)
                 .attr("font-family", "sans-serif")
