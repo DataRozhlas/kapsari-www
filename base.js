@@ -231,7 +231,7 @@ var drawMap = function() {
 	        $("#chart").empty()
 	        drawChart(features[0].properties['data'])
 	        console.log(features[0].properties)
-	        $(".info").append("Služebna <b>" + features[0].properties['OOP_NAZEV'] + "</b><br>" + "Průměrně <b>" + sklonovani(Math.round(features[0].properties['rate'] * 10)) + "</b> měsíčně na 100 tis. obyvatel (žije zde " + features[0].properties['SUM_N_TRVA'] + " osob).")
+	        $(".info").append("Služebna <b>" + features[0].properties['OOP_NAZEV'] + "</b><br>" + "Průměrně <b>" + sklonovani(Math.round(features[0].properties['rate'] * 10)) + "</b> měsíčně na 100 tis. obyvatel (v okrsku žije asi " + features[0].properties['SUM_N_TRVA'] + " osob).")
 	    });
 	});
 };
